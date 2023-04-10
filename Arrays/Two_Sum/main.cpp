@@ -17,6 +17,7 @@
 
 #include <vector>
 #include <iostream>
+#include <unordered_map>
 
 using namespace std;
 
@@ -53,11 +54,26 @@ public:
 
     vector<int> twoSum (const vector<int> &nums, int target){ // O(n)
 
+        unordered_map<int, int> mp;
+        int complement;
+        int size = nums.size();
+
+        for (int i = 0; i < size; ++i) {
+            complement = target - nums[i];
+             // if find complement key in map, if found returns 1
+            if (mp.count(complement)) { // Ex: target is 6, array has 2, look for its complement 4
+                left_index = mp[complement]; // return the value of the found complement key
+                right_index = i; // return the current array index
+                return {left_index, right_index};
+            }
+            mp[nums[i]] = i; // add map pairs to unsorted_map mp
+        }
+    return {};
     }
 };
 
 int main(){
-    //Example 1
+    //Example 1, sorted array
     vector<int> nums1 = {2,7,11,15};
     int target1 {9};
 
@@ -65,15 +81,15 @@ int main(){
     result1.twoSum(nums1, target1);
     cout << "[" << result1.left_index << "," << result1.right_index << "]" << endl;
 
-    //Example 2
-    vector<int> nums2 = {3,2,4};
+    //Example 2, unsorted array
+    vector<int> nums2 = {3,2,5,4,6};
     int target2 {6};
 
-    Solution_for_sorted_array result2;
+    Solution_for_unsort_array result2;
     result2.twoSum(nums2, target2);
     cout << "[" << result2.left_index << "," << result2.right_index << "]" << endl;
 
-    //Example 3
+    //Example 3, sorted array
     vector<int> nums3 = {3,3};
     int target3 {6};
 
