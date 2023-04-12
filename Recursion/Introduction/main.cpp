@@ -11,7 +11,9 @@ string inception(){
         return "done!";
     }
     counter++;
-    return inception();
+    return inception(); 
+    // without the return
+    // the "done" only returns to the latest function call
 }
 
 int main(){
